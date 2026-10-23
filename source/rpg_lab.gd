@@ -1,6 +1,7 @@
 extends Node2D
 const Catalog=preload("res://rpg_catalog.gd")
 const Renderer=preload("res://rpg_renderer.gd")
+const AstraRenderer=preload("res://rpg_astra.gd")
 const WHITE=Color("e5edf8")
 const MUTED=Color("8c9eb4")
 var selected=0
@@ -14,6 +15,10 @@ var light_stage=false
 var context_on=true
 var capture_active=false
 var renderer:Node2D
+var astra:Node2D
+var comparison_mode=2
+var comparison_buttons:Array[Button]=[]
+var comparison_labels:Array[Label]=[]
 var effect_buttons:Array[Button]=[]
 var toggles:Array[CheckButton]=[]
 var title_label:Label
@@ -53,6 +58,9 @@ func _ready():
 	button_at("Source reference ↗",Vector2(20,767),Vector2(185,40),func():OS.shell_open(Catalog.URLS[selected]))
 	label_at("1–8   Select\nSpace   Replay\nP   Pause / resume",Vector2(23,842),13,MUTED,195)
 	title_label=label_at("",Vector2(252,125),28)
+	for i in range(3):
+		var mode=i
+		comparison_buttons.append(button_at(["Baseline","Astra attempt","A/B"][i],Vector2([766,875,1032][i],130),Vector2([100,148,80][i],35),func():set_comparison(mode)))
 	source_label=label_at("",Vector2(253,170),14,MUTED,880)
 	phase_label=label_at("",Vector2(257,738),12,MUTED,840)
 	label_at("LAYER BREAKDOWN",Vector2(245,803),11,MUTED,185)
@@ -67,7 +75,7 @@ func _ready():
 	timeline=slider_at(Vector2(246,883),868,0,2,0,func(v):seek(v))
 	pause_button=button_at("Pause",Vector2(245,925),Vector2(95,40),func():playing=not playing;update_play_button())
 	button_at("Replay",Vector2(352,925),Vector2(95,40),replay)
-	button_at("New seed",Vector2(460,925),Vector2(110,40),func():seed_value+=1;renderer.configure(selected,seed_value))
+	button_at("New seed",Vector2(460,925),Vector2(110,40),func():seed_value+=1;renderer.configure(selected,seed_value);astra.configure(1,seed_value))
 	var rate=OptionButton.new();rate.position=Vector2(587,925);rate.size=Vector2(100,40)
 	for s in ["0.25×","0.5×","1×"]:rate.add_item(s)
 	rate.select(2);rate.item_selected.connect(func(i):speed=[.25,.5,1.0][i]);add_child(rate)
@@ -85,11 +93,39 @@ func _ready():
 	var context=CheckButton.new();context.text="Context";context.position=Vector2(1415,932);context.button_pressed=true;context.toggled.connect(func(v):context_on=v);add_child(context)
 	var clip=Control.new();clip.position=Vector2(235,210);clip.size=Vector2(895,570);clip.clip_contents=true;clip.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(clip)
 	renderer=Renderer.new();renderer.position=Vector2(447,280);clip.add_child(renderer)
+	astra=AstraRenderer.new();astra.position=Vector2(447,280);clip.add_child(astra);astra.configure(1,seed_value)
+	comparison_labels.append(label_at("BASELINE",Vector2(253,220),11,MUTED,700))
+	comparison_labels.append(label_at("ASTRA ATTEMPT",Vector2(253,490),11,Color("c1a1ff"),700))
+	for l in comparison_labels:l.z_index=5
 	select_effect(0)
 	if "--self-test" in OS.get_cmdline_user_args():self_test.call_deferred()
 	if "--capture" in OS.get_cmdline_user_args():capture.call_deferred()
 	if "--seek-test" in OS.get_cmdline_user_args():seek_test.call_deferred()
 	if "--motion-capture" in OS.get_cmdline_user_args():motion_capture.call_deferred()
+	if "--astra-capture" in OS.get_cmdline_user_args():astra_capture.call_deferred()
+	if "--astra-motion" in OS.get_cmdline_user_args():astra_motion.call_deferred()
+	if "--astra-test" in OS.get_cmdline_user_args():astra_test.call_deferred()
+	if "--astra-seek-test" in OS.get_cmdline_user_args():astra_seek_test.call_deferred()
+func set_comparison(mode:int):
+	comparison_mode=mode
+	update_comparison()
+func update_comparison():
+	var electric=selected==1
+	for b in comparison_buttons:b.visible=electric
+	for i in range(3):
+		comparison_buttons[i].add_theme_stylebox_override("normal",style(Color("392953") if i==comparison_mode else Color("152033"),Color("b89aea") if i==comparison_mode else Color("2a3b52")))
+	renderer.visible=not electric or comparison_mode!=1
+	astra.visible=electric and comparison_mode!=0
+	var dual=electric and comparison_mode==2
+	renderer.position=Vector2(447,145 if dual else 280)
+	astra.position=Vector2(447,410 if dual else 280)
+	for l in comparison_labels:l.visible=dual
+	if electric:
+		source_label.text="Genshin · Raiden Shogun  /  same 1.20 s clock, strike 0.26 s, seed and layer controls"
+		inspector.text=astra_inspector() if comparison_mode!=0 else Catalog.inspector(1)
+		inspector.scroll_to_line(0)
+func astra_inspector()->String:
+	return "[color=#bda3ed]ELECTRIC / A–B STUDY[/color]\n\n[b]Baseline / Astra attempt[/b]\nBoth run on the same clock, seed, scale and energy. Switching views keeps the current playhead. A/B fits both into equal stage space.\n\n[b]Reference[/b]\nGenshin · Raiden Shogun official demo. Violet-white release and cyan fringe in the burst / sword sequence.\n[url=https://www.youtube.com/watch?v=mvrW4aKwAXw&t=99s]Open source reference ↗[/url]\n\n[b]01 · Authored sprites[/b]\nSeparate calligraphic lids, rotating three-part iris, a torn blade plane and its displaced echo.\n\n[b]02 · Shader energy[/b]\nDark aperture, contracting eye, a white incision, violet torn edges and delayed branching discharge.\n\n[b]03 · GPU particle motion[/b]\nTwo opposing sprays leave the entire seam. Slower, rotating shards carry the residual motion after the blade is gone.\n\n[b]Timing[/b]\nEye opens 0.00–0.18 s; shears through the strike until 0.35 s. Cut traverses in 0.033 s; particles begin at 0.285 s. Recovery ends at 1.20 s.\n\n[b]Layer controls[/b]\nMute and Solo affect both versions together. Shader mute removes the energy field and restores flat sprite shading.\n\n[b]Similarity & limits[/b]\nOriginal isolated 2.5D motif study. Timing is compressed to the existing lab cycle. This does not reproduce the character, full-screen cinematic, camera cuts or exact game animation. No reference footage or extracted assets are included."
 func select_effect(k:int):
 	selected=k;playhead=0;playing=true
 	title_label.text=Catalog.NAMES[k];title_label.add_theme_color_override("font_color",Catalog.COLORS[k])
@@ -97,12 +133,16 @@ func select_effect(k:int):
 	inspector.text=Catalog.inspector(k);inspector.scroll_to_line(0)
 	timeline.max_value=Catalog.DURATIONS[k]
 	renderer.configure(k,seed_value)
+	if k==1:astra.configure(1,seed_value)
+	update_comparison()
 	all_layers()
 	for i in range(8):effect_buttons[i].add_theme_stylebox_override("normal",style(Color("263448") if i==k else Color("111b2c"),Catalog.COLORS[i] if i==k else Color("293b50")))
 	update_play_button()
 func update_layers():
 	renderer.sprites_on=toggles[0].button_pressed;renderer.shaders_on=toggles[1].button_pressed;renderer.particles_on=toggles[2].button_pressed
 	renderer.last_time=-1
+	astra.sprites_on=toggles[0].button_pressed;astra.shaders_on=toggles[1].button_pressed;astra.particles_on=toggles[2].button_pressed
+	astra.last_time=-1
 func solo(n:int):
 	for i in range(3):toggles[i].set_pressed_no_signal(i==n)
 	update_layers()
@@ -110,14 +150,16 @@ func all_layers():
 	for c in toggles:c.set_pressed_no_signal(true)
 	update_layers()
 func seek(t:float):playhead=t;playing=false;update_play_button()
-func replay():playhead=0;playing=true;renderer.last_time=-1;update_play_button()
+func replay():playhead=0;playing=true;renderer.last_time=-1;astra.last_time=-1;update_play_button()
 func update_play_button():pause_button.text="Pause" if playing else "Play"
 func _process(delta):
 	if not renderer:return
 	if playing and not capture_active:
 		playhead+=delta*speed
 		if playhead>Catalog.DURATIONS[selected]+.65:playhead=0
-	renderer.sample(playhead,size_multiplier,intensity)
+	var view_scale=size_multiplier*(.72 if selected==1 and comparison_mode==2 else 1.)
+	renderer.sample(playhead,view_scale,intensity)
+	if selected==1:astra.sample(playhead,view_scale,intensity)
 	timeline.set_value_no_signal(minf(playhead,Catalog.DURATIONS[selected]))
 	time_label.text="%.2f s"%playhead;seed_label.text="SEED  %d"%seed_value
 	phase_label.text="ANTICIPATION" if playhead<Catalog.STRIKES[selected] else ("STRIKE / CONTACT" if playhead<Catalog.STRIKES[selected]+.18 else "RECOVERY / DISSIPATION")
@@ -132,10 +174,17 @@ func _draw():
 	draw_line(Vector2(0,88),Vector2(1600,88),Color("29394c"))
 	var bg=Color("8795a4") if light_stage else Color("111c2b")
 	draw_style_box(style(bg,Color("293e52")),Rect2(235,210,895,570))
+	if selected==1 and comparison_mode==2:
+		draw_line(Vector2(250,480),Vector2(1115,480),Color("354053"),1)
+		for cy in [355.,620.]:
+			for x in range(270,1130,105):draw_line(Vector2(682,cy+15),Vector2(x,cy+110),Color(.35,.5,.65,.12))
+			for y in [cy+35,cy+65,cy+105]:draw_line(Vector2(250,y),Vector2(1115,y),Color(.35,.5,.65,.12))
+			if context_on:comparison_target(Vector2(820,cy+52),.65,Color("536a7d") if not light_stage else Color("465563"))
+		return
 	var linecol=Color(.35,.5,.65,.14)
 	for y in [570,610,664,735]:draw_line(Vector2(250,y),Vector2(1115,y),linecol)
 	for x in range(270,1130,85):draw_line(Vector2(682,460),Vector2(x,770),linecol)
-	if context_on:
+	if context_on and not (selected==1 and comparison_mode==2):
 		var target=Vector2(872,565)
 		if selected in [2,3,7]:target=Vector2(682,600)
 		var c=Color("536a7d") if not light_stage else Color("465563")
@@ -152,6 +201,13 @@ func stage_ellipse(p:Vector2,s:Vector2,c:Color):
 	var points=PackedVector2Array()
 	for i in range(48):points.append(p+Vector2(cos(i*TAU/48),sin(i*TAU/48))*s)
 	draw_colored_polygon(points,c)
+func comparison_target(p:Vector2,zoom:float,c:Color):
+	draw_set_transform(p,0,Vector2.ONE*zoom)
+	stage_ellipse(Vector2(0,15),Vector2(25,8),Color(0,0,0,.2))
+	draw_circle(Vector2(0,-98),12,c)
+	draw_colored_polygon(PackedVector2Array([Vector2(-17,-80),Vector2(18,-80),Vector2(13,-33),Vector2(-12,-33)]),Color(c,.45))
+	for pair in [[Vector2(-16,-76),Vector2(-30,-40)],[Vector2(17,-76),Vector2(32,-40)],[Vector2(-8,-33),Vector2(-15,6)],[Vector2(9,-33),Vector2(17,6)]]:draw_line(pair[0],pair[1],c,5,true)
+	draw_set_transform(Vector2.ZERO)
 func self_test():
 	capture_active=true
 	for k in range(8):
@@ -206,4 +262,54 @@ func seek_test():
 		seek(Catalog.PEAKS[k]+.3);await settled();seek(Catalog.PEAKS[k]);var second=await settled()
 		if first.get_data()!=second.get_data():failed+=1;print("DIFFERENCE: ",k)
 	print("HYBRID PARTICLE SEEK: ",8-failed,"/8 pixel-identical")
+	get_tree().quit(0 if failed==0 else 1)
+func astra_capture():
+	capture_active=true
+	var args=OS.get_cmdline_user_args();var out=args[args.find("--astra-capture")+1];DirAccess.make_dir_recursive_absolute(out)
+	select_effect(1);playing=false
+	for mode in range(3):
+		set_comparison(mode)
+		for j in range(6):
+			seek([.13,.235,.29,.36,.55,.82][j]);renderer.last_time=-1;astra.last_time=-1
+			await shot(out.path_join("mode%d-phase%d.png"%[mode,j]))
+	set_comparison(1);seek(.36)
+	for i in range(3):
+		solo(i);await shot(out.path_join("astra-solo%d.png"%i));all_layers()
+		toggles[i].set_pressed_no_signal(false);update_layers();await shot(out.path_join("astra-mute%d.png"%i));all_layers()
+	light_stage=true;seek(.13);await shot(out.path_join("astra-light-eye.png"));seek(.36);await shot(out.path_join("astra-light-cut.png"))
+	print("CAPTURED: Electric baseline / Astra / A-B phases, 3 solos, 3 mutes and 2 light views")
+	get_tree().quit()
+func astra_motion():
+	capture_active=true
+	var args=OS.get_cmdline_user_args();var out=args[args.find("--astra-motion")+1];DirAccess.make_dir_recursive_absolute(out)
+	select_effect(1);set_comparison(2);playing=false
+	for frame in range(73):
+		playhead=float(frame)/60.
+		await shot(out.path_join("ab-%03d.png"%frame))
+	print("CAPTURED: 73 Electric A-B frames at 60 fps, same clock and seed")
+	get_tree().quit()
+func astra_test():
+	capture_active=true;select_effect(1);seek(.36)
+	assert(astra.cards.size()==4 and astra.emitters.size()==3)
+	for mode in range(3):
+		set_comparison(mode);assert(playhead==.36 and not playing)
+		assert(renderer.visible==(mode!=1) and astra.visible==(mode!=0))
+	for i in range(3):
+		solo(i);assert(playhead==.36 and not playing)
+		assert(renderer.sprites_on==astra.sprites_on and renderer.shaders_on==astra.shaders_on and renderer.particles_on==astra.particles_on)
+	all_layers()
+	for e in astra.emitters:assert(e.use_fixed_seed and e.texture!=null and e.process_material is ParticleProcessMaterial)
+	for k in [0,2,3,4,5,6,7]:
+		select_effect(k);assert(renderer.visible and not astra.visible)
+		for b in comparison_buttons:assert(not b.visible)
+	print("PASS: Electric A-B preserves clock and layer parity; 4 authored sprites / 2 shaders / 3 seeded GPU sprays; other seven use baseline renderer")
+	get_tree().quit()
+func astra_seek_test():
+	capture_active=true;select_effect(1);set_comparison(1);solo(2)
+	var failed=0
+	for t in [.31,.45,.7]:
+		seek(t);var first=await settled()
+		seek(t+.27);await settled();seek(t);var second=await settled()
+		if first.get_data()!=second.get_data():failed+=1;print("ASTRA DIFFERENCE: ",t)
+	print("ASTRA PARTICLE SEEK: ",3-failed,"/3 pixel-identical")
 	get_tree().quit(0 if failed==0 else 1)

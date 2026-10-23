@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="300" viewBox="0 0 720 300">
+<defs><linearGradient id="rim" x1="0" y1="0" x2="0" y2="1"><stop stop-color="white"/><stop offset=".4" stop-color="#d7bdff"/><stop offset="1" stop-color="#7654c9"/></linearGradient></defs>
+<!-- Two calligraphic lids with long asymmetric tips, deliberately open at the corners. -->
+<path d="M16 158 C100 151 163 67 288 51 C432 30 536 99 650 141 L709 150 C597 149 522 91 424 73 C292 49 205 89 114 136 L78 145 L142 111 C86 143 48 154 16 158Z" fill="url(#rim)"/>
+<path d="M20 153 C118 156 189 210 302 224 C447 242 538 193 690 148 C585 198 508 245 383 246 C247 246 166 201 94 170 L58 168 L105 183 C67 171 43 159 20 153Z" fill="url(#rim)"/>
+<path d="M96 143 Q271 4 458 70 M278 235 Q478 271 623 180" fill="none" stroke="white" stroke-width="2" stroke-opacity=".58"/>
+<path d="M13 159 L86 150 L61 155Z M644 144 L715 150 L652 155Z M126 118 L158 104 L144 113Z M563 206 L607 184 L596 195Z" fill="white"/>
+</svg>

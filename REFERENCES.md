@@ -11,3 +11,7 @@ Official game footage is reference material only, not a distributed texture sour
 - [Changli: Seize the Initiative](https://www.youtube.com/watch?v=jYjxjy1l6Co&t=140s) — **combat at2:00 and release at2:20 visually inspected**. Combat uses thin near-white leading edges and translucent saturated red wakes; later release uses a hot gold wing-like fire silhouette with a large pressure arc. The lab reconstructs wing opening, fevered feather breakup and pressure expansion, with denser original texture detail.
 
 The linked targets are not a claim that every frame of every demo was watched or measured. Sequence timing is authored for this lab; it is not measured from the videos. Local reference screenshots are kept in the work output for critique and are not bundled with the game.
+
+## Electric A/B addition
+
+The Astra comparison additionally frame-stepped the official Raiden demo around **1:39–1:40.7**, including the sword draw, the eye emblem within broad diagonal brush streaks at approximately **1:40.2**, and the electrical release following it. That inspection informed the eye remaining visible as it shears into the cut, the violet-white palette and small cyan fringe. The existing 1:44 screenshot depicts a later diagonal sword follow-up, not the eye transition itself. The lab compresses these motifs into its existing 1.2-second cycle; it does not reproduce the full-screen cinematic, character, camera or exact timing. [Open the burst sequence](https://www.youtube.com/watch?v=mvrW4aKwAXw&t=99s).
