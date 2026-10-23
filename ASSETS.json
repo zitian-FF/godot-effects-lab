@@ -1,0 +1,69 @@
+{
+  "reused_assets": {
+    "Kenney Particle Pack": {
+      "url": "https://kenney.nl/assets/particle-pack",
+      "license": "CC0",
+      "files": [
+        "dirt_02.png",
+        "fire_01.png",
+        "fire_02.png",
+        "flame_02.png",
+        "flame_03.png",
+        "flame_05.png",
+        "light_02.png",
+        "magic_01.png",
+        "magic_04.png",
+        "magic_05.png",
+        "muzzle_01.png",
+        "muzzle_02.png",
+        "muzzle_04.png",
+        "slash_01.png",
+        "slash_02.png",
+        "slash_03.png",
+        "smoke_07.png",
+        "smoke_08.png",
+        "spark_01.png",
+        "spark_02.png",
+        "spark_03.png",
+        "spark_05.png",
+        "spark_06.png",
+        "star_02.png",
+        "star_04.png",
+        "star_07.png",
+        "trace_03.png",
+        "trace_05.png",
+        "trace_07.png",
+        "twirl_03.png"
+      ]
+    }
+  },
+  "imagegen": {
+    "asset": "flame-imagegen-512.png",
+    "original": "output/vfx-lab-v2-generation/unused-source-textures/flame-imagegen.png",
+    "prompt": "Create ONE production VFX texture asset: a single vertically rising realistic flame plume, isolated with genuinely transparent alpha background, no ground, no text, no frame. Warm orange and amber flowing wispy fire with detailed dark-orange internal structure, small pale-yellow hottest regions only, curling tongues and broken tapering edges. The plume occupies central 70% of a square canvas, its base centered near bottom quarter. Restrained exposure, avoid broad white blobs. Intended as a reusable particle billboard in a real-time game engine; clean alpha with soft translucent fringes, coherent shape readable when reduced to 128 pixels. No smoke cloud, no sparks, no scene lighting.",
+    "tool": "built-in image_gen",
+    "alpha_preserved": true
+  },
+  "local_wan": {
+    "selected": [
+      "electric",
+      "ice",
+      "slash"
+    ],
+    "existing_selected": "art/wan-impact-atlas.png",
+    "rejected": [
+      "fire: off-center late ignition",
+      "healing: colored background",
+      "stab: clipped beam",
+      "muzzle: wrong silhouette"
+    ],
+    "native_outputs_and_workflows": "output/vfx-lab-v2-generation/<category>/"
+  },
+  "original_raster": "ice-shard.png; authored faceted crystal",
+  "shader_provenance": "Original CanvasItem shader, GDQuest technique inspiration; no copied source",
+  "references": [
+    "https://www.riotgames.com/en/artedu/visual-effects",
+    "https://github.com/gdquest-demos/godot-shaders",
+    "https://docs.godotengine.org/en/stable/classes/class_gpuparticles2d.html"
+  ]
+}

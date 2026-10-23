@@ -2,10 +2,10 @@
 
 Standalone Godot 4.7.2 Compatibility project. Open `project.godot` and run the main scene.
 
-Eight real-time 2D studies: fire, electric, ice, healing, slash, stab, muzzle flash, explosion. Select with 1–8, replay with Space or click the viewport, pause with P. The timeline pauses on scrub. Inspect layers, intensity, size, speed, background and deterministic seed variations.
+Eight real-time 2D categories, each with Sprite / Particles / Shader paths and three named mutations (72 configurations). Select with 1–8, replay with Space or click the viewport, pause with P. The timeline pauses on scrub. Method/mutation switches preserve time and seed. Use Best attempt for curated selections. The side inspector explains each configuration, texture source and tradeoff.
 
-The optional explosion flipbook is the existing locally generated Wan 2.2 TI2V 5B test (seed 22102026, 49 frames, 20 steps). Its black background uses additive blending; the engine supplies fade because the original clip did not dissipate. This is a prototype source layer, not a transparent production asset. No new AI generation is required to run this lab.
+Selected raster clips are generated locally with Wan 2.2 TI2V 5B, including the prior explosion test. The engine supplies fade and a supporting black-floor matte shader for these black-backed clips. Other sprite paths animate alpha texture cards. Genuine particle emitters use selected Kenney CC0 or ImageGen billboards; shader paths use analytic noise and distance fields. No generation service is needed at runtime.
 
-`godot --headless --path games/effects-lab -- --self-test` checks controls and deterministic setup. Run with `-- --capture ABSOLUTE_DIRECTORY` using a graphics device to capture each effect.
+`godot --headless --path source -- --self-test` checks 72 configurations and time/seed hold. Run with `-- --seek-test` on a graphics device to test pixel parity after backward particle seeks. `-- --capture ABSOLUTE_DIRECTORY` captures all configurations, three phases and light-background samples.
 
 Web export uses a single thread and requires WebGL 2. Install matching Godot 4.7.2 export templates before exporting. Build output is ignored.

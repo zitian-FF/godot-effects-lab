@@ -5,8 +5,8 @@ config/name="Effects Lab"
 run/main_scene="res://lab.tscn"
 
 [display]
-window/size/viewport_width=1440
-window/size/viewport_height=900
+window/size/viewport_width=1600
+window/size/viewport_height=1000
 window/size/window_width_override=1280
 window/size/window_height_override=800
 window/stretch/mode="canvas_items"
