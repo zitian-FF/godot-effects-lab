@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+<circle cx="128" cy="128" r="93" fill="none" stroke="#bba1f3" stroke-width="2"/>
+<circle cx="128" cy="128" r="84" fill="none" stroke="white" stroke-width="3" stroke-dasharray="118 58"/>
+<g fill="white"><path id="a" d="M128 53 C149 49 164 64 164 79 C164 101 143 106 132 99 C119 91 123 77 133 73 C115 74 101 90 100 107 C85 92 94 65 115 57Z"/><use href="#a" transform="rotate(120 128 128)"/><use href="#a" transform="rotate(240 128 128)"/></g>
+<circle cx="128" cy="128" r="9" fill="white"/>
+</svg>

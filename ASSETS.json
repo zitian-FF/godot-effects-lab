@@ -1,7 +1,14 @@
 {
   "round": 3,
   "runtime_assets": {
-    "original_alpha_masks": "source/art/rpg/*.svg; reproducible with tools/make_masks.py",
+    "original_alpha_masks": "Original round 3 masks in source/art/rpg/; reproducible with tools/make_masks.py. The separately authored astra-*.svg additions are excluded from that generator.",
+    "astra_comparison": {
+      "assets": ["source/art/rpg/astra-eye.svg", "source/art/rpg/astra-iris.svg", "source/art/rpg/astra-cut.svg", "source/art/rpg/astra-shard.svg"],
+      "provenance": "Original separately code-authored SVG silhouettes for the Electric comparison; no game textures or footage extracted.",
+      "shaders": ["source/astra_surface.gdshader", "source/astra_field.gdshader"],
+      "renderer": "source/rpg_astra.gd; four Sprite2D cards and three GPUParticles2D emitters",
+      "reference_review": "Official Raiden demo at approximately 1:39–1:40.7; eye within diagonal brush streaks at 1:40.2. Authored timing compressed to 1.2 seconds."
+    },
     "shaders": "source/rpg_sprite.gdshader and source/rpg_field.gdshader; original code",
     "imagegen": {
       "asset": "source/art/rpg/phoenix-feather.png",
