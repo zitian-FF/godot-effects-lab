@@ -1,31 +1,41 @@
-# Godot Effects Lab
+# Elemental Atelier — Godot Effects Lab
 
 [Open the live lab](https://zitian-ff.github.io/godot-effects-lab/)
 
-Eight interactive 2D categories: fire, electric, ice, healing, slash, stab, muzzle flash and explosion. Each has Sprite, Particles and Shader implementations with three named mutations: **24 implementations, 72 configurations**.
+Eight composed RPG effects replace the former implementation studies. Every effect combines **authored sprite silhouettes, animated shader materials / energy fields, and genuine GPUParticles2D motion**. The default view is the finished combination. Mute or solo a layer to inspect its contribution at the same time and seed.
 
-The **Best attempt** button opens a curated configuration. Implementation and mutation switches preserve the playhead and seed for comparison. Includes replay, scrub/pause, slow motion, size/intensity and light-background review. The scrolling side inspector explains the exact mutation, nodes/materials, texture source, construction steps, tradeoff and online references.
+| Effect | Reference target | Composition |
+|---|---|---|
+| Butterfly blaze | Genshin / Hu Tao | Flame sweep, separate butterflies, ember wake |
+| Eye of thunder | Genshin / Raiden | Eye anticipation, white-violet cut, endpoint discharge |
+| Frost blossom | Genshin / Ayaka | Floor seal, rising frost petals, delayed chips / snow |
+| Tidal benediction | Genshin / Kokomi | Water canopy / tendrils, traveling caustics, drops / pearls |
+| Verdant sever | Wuthering Waves / Jiyan | Swept wind ribbon, eroding material, aligned wind fragments |
+| Astral pierce | JRPG lance / Jiyan thrust | Origin-to-target lance, contact ring, longitudinal sparks |
+| Resonant gunshot | Wuthering Waves / Chixia | Barrel-anchored gas flash, pressure arc, sparks and smoke |
+| Phoenix release | Wuthering Waves / Changli | Articulated flame wings, shock front, spreading feathers / ash |
 
-Open `source/project.godot` with Godot 4.7.2. Uses the Compatibility renderer and a single-threaded Web export. No plugins or external services are required at runtime.
+These are original isolated 2.5D reconstructions of RPG visual motifs, not frame-exact game copies. In particular, phoenix uses a denser feather silhouette than Changli's thin red combat wakes. Full character choreography, 3D trails and cinematic camera cuts are outside this project. No extracted game assets or reference footage are embedded in the runtime. Official source links are in the composition inspector; [REFERENCES.md](REFERENCES.md) records what was actually inspected.
 
-Sprite paths use selected local Wan 2.2 TI2V 5B flipbooks, alpha texture cards from Kenney's CC0 Particle Pack, an original crystal raster and an ImageGen flame plume. Particle paths use genuine GPUParticles2D emitters with ParticleProcessMaterial, fixed seeds and timeline simulation. Shader paths evaluate original CanvasItem noise/distance fields from an explicit playhead uniform.
+The original 72 studies and their assets were removed from the active project; they remain recoverable in Git history. This version uses new code-authored alpha masks and one new ImageGen flame-feather texture. See [ASSETS.json](ASSETS.json) for the prompt and provenance. No AI service or local model is needed at runtime.
 
-The first local AI pass produced seven clips; electric, ice and slash were selected, alongside the earlier explosion. Fire, healing, stab and muzzle outputs had poor framing/background/shape and were rejected rather than silently presented as finished work. Prompts/workflows are saved in `provenance/`; asset origins and the ImageGen prompt are in [ASSETS.json](ASSETS.json).
+## Controls
 
-These are capability studies, not production asset certification. The independent critic reviewed 72 dark-background configurations, 24 light-background views and attack/peak/decay strips, and prompted revisions to clipping, particle readability, matte cleanup and inspector accuracy. Native particle backward seeking was pixel-identical in 8/8 categories on the development GPU; browser/GPU differences remain possible.
+1–8 select effects; Space replays; P pauses. Scrubbing pauses at the chosen age. Show peak selects a useful review frame. Mute / Solo / All controls hold the playhead and seed. Slow motion, size, energy, light-stage and context controls support inspection. The side panel explains each layer's actual role and sequence timing.
 
-References are linked in the inspector: [Kenney Particle Pack](https://kenney.nl/assets/particle-pack) supplies reused CC0 textures; [GDQuest's shader library](https://github.com/gdquest-demos/godot-shaders) and [Riot's VFX education](https://www.riotgames.com/en/artedu/visual-effects) inform technique and visual hierarchy. No commercial game assets or GDQuest shader source were copied.
+## Run and verify
 
-## Rebuild
-
-Install matching export templates, then run:
+Open `source/project.godot` with Godot 4.7.2; Compatibility renderer, single-threaded Web export, no plugins.
 
 ```text
 godot --headless --path source --editor --import --quit
 godot --headless --path source -- --self-test
+godot --path source -- --seek-test
+godot --path source -- --capture ABSOLUTE_DIRECTORY
+godot --path source -- --motion-capture ABSOLUTE_DIRECTORY
 godot --headless --path source --export-release Web ../docs/index.html
 ```
 
-Serve `docs/` over HTTP to preview. Commit the source and its reviewed Web export together. GitHub Actions deploys only the frozen export under `docs/`; it does not build or deploy other games.
+The independent critic reviewed full, solo, mute, phase and light-stage captures. The final hybrid compositions passed after revisions to material contrast, water clarity, particle placement and wing motion. Native particle backward seeking was pixel-identical in 8/8 categories on RTX5070. Browser/GPU differences remain possible. Desktop landscape is the main layout.
 
-Desktop landscape is the primary review layout. Keyboard: 1–8 select, Space replay, P pause. The interface scales to the available browser area.
+Matching export templates are required. GitHub Actions verifies SHA256 hashes and publishes the frozen `docs/` export. It does not build other games.

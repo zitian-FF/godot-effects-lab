@@ -1,69 +1,19 @@
 {
-  "reused_assets": {
-    "Kenney Particle Pack": {
-      "url": "https://kenney.nl/assets/particle-pack",
-      "license": "CC0",
-      "files": [
-        "dirt_02.png",
-        "fire_01.png",
-        "fire_02.png",
-        "flame_02.png",
-        "flame_03.png",
-        "flame_05.png",
-        "light_02.png",
-        "magic_01.png",
-        "magic_04.png",
-        "magic_05.png",
-        "muzzle_01.png",
-        "muzzle_02.png",
-        "muzzle_04.png",
-        "slash_01.png",
-        "slash_02.png",
-        "slash_03.png",
-        "smoke_07.png",
-        "smoke_08.png",
-        "spark_01.png",
-        "spark_02.png",
-        "spark_03.png",
-        "spark_05.png",
-        "spark_06.png",
-        "star_02.png",
-        "star_04.png",
-        "star_07.png",
-        "trace_03.png",
-        "trace_05.png",
-        "trace_07.png",
-        "twirl_03.png"
-      ]
+  "round": 3,
+  "runtime_assets": {
+    "original_alpha_masks": "source/art/rpg/*.svg; reproducible with tools/make_masks.py",
+    "shaders": "source/rpg_sprite.gdshader and source/rpg_field.gdshader; original code",
+    "imagegen": {
+      "asset": "source/art/rpg/phoenix-feather.png",
+      "tool": "built-in image_gen",
+      "native_dimensions": [1254,1254],
+      "runtime_dimensions": [512,512],
+      "alpha_preserved": true,
+      "prompt": "Use case: stylized-concept. Asset: ONE reusable real-time fantasy RPG VFX alpha sprite, NOT a scene or a whole effect. A single elegant PHOENIX FLAME FEATHER with a long curved tapered silhouette, angled from lower left base to upper right needle tip. Chinese action-RPG painterly energy aesthetic: deep crimson underside, saturated vermilion body, amber-gold broken edges, a thin pale gold leading vein, elegantly split barbs and negative spaces. The form must read as a feather made of sculpted fire rather than realistic fire photograph. Rich internal painted strand detail with a few restrained hottest highlights; no white blob. Feather fully contained inside square canvas with generous transparent padding, occupies central70%. Genuinely transparent background, alpha fringes, no ground, no text, no border, no emblem, no spark cloud, no other feathers. This will be duplicated and articulated in-engine to form opening phoenix wings, and noise-eroded with a custom shader. Original asset inspired by fantasy RPG shape language, not a screenshot."
     }
   },
-  "imagegen": {
-    "asset": "flame-imagegen-512.png",
-    "original": "output/vfx-lab-v2-generation/unused-source-textures/flame-imagegen.png",
-    "prompt": "Create ONE production VFX texture asset: a single vertically rising realistic flame plume, isolated with genuinely transparent alpha background, no ground, no text, no frame. Warm orange and amber flowing wispy fire with detailed dark-orange internal structure, small pale-yellow hottest regions only, curling tongues and broken tapering edges. The plume occupies central 70% of a square canvas, its base centered near bottom quarter. Restrained exposure, avoid broad white blobs. Intended as a reusable particle billboard in a real-time game engine; clean alpha with soft translucent fringes, coherent shape readable when reduced to 128 pixels. No smoke cloud, no sparks, no scene lighting.",
-    "tool": "built-in image_gen",
-    "alpha_preserved": true
-  },
-  "local_wan": {
-    "selected": [
-      "electric",
-      "ice",
-      "slash"
-    ],
-    "existing_selected": "art/wan-impact-atlas.png",
-    "rejected": [
-      "fire: off-center late ignition",
-      "healing: colored background",
-      "stab: clipped beam",
-      "muzzle: wrong silhouette"
-    ],
-    "native_outputs_and_workflows": "output/vfx-lab-v2-generation/<category>/"
-  },
-  "original_raster": "ice-shard.png; authored faceted crystal",
-  "shader_provenance": "Original CanvasItem shader, GDQuest technique inspiration; no copied source",
-  "references": [
-    "https://www.riotgames.com/en/artedu/visual-effects",
-    "https://github.com/gdquest-demos/godot-shaders",
-    "https://docs.godotengine.org/en/stable/classes/class_gpuparticles2d.html"
-  ]
+  "commercial_assets_reused": false,
+  "local_wan_clips_reused": false,
+  "references": "REFERENCES.md; official video links are also exposed in the composition inspector",
+  "previous_round": "Removed from active runtime. Source, local Wan provenance and Kenney attribution remain in Git history at60e34f95b4838c104e348928539b6401527b0e93."
 }
