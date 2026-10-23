@@ -1,0 +1,4 @@
+.godot/
+source/build/
+source/captures/
+*.tmp
