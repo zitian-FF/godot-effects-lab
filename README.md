@@ -2,6 +2,8 @@
 
 [Open the live lab](https://zitian-ff.github.io/godot-effects-lab/)
 
+[Electric gameplay study — motion blockout](https://zitian-ff.github.io/godot-effects-lab/studies/electric-gameplay/) is a separate work-in-progress review pass following the choice of a character-anchored gameplay attack. Inspect weapon-driven crescent motion, a planted-foot step, contact and recovery in grayscale before adding textures, shaders and particles. It includes phase checkpoints, slow playback, frame stepping, scrub and mass/path toggles with a production inspector. See [the study notes](studies/electric-gameplay/README.md). The main lab below remains the earlier comparison.
+
 Eight composed RPG effects replace the former implementation studies. Every effect combines **authored sprite silhouettes, animated shader materials / energy fields, and genuine GPUParticles2D motion**. The default view is the finished combination. Mute or solo a layer to inspect its contribution at the same time and seed.
 
 Electric also includes a focused **Baseline / Astra attempt / A/B** comparison. Both versions use the same 1.2-second clock, 0.26-second strike time, seed, scale, energy and layer controls; switching views holds the playhead. The Astra attempt uses its own four authored SVG masks, two shaders and three GPU particle sprays. Its larger eye shears into the diagonal cut before breaking into seam fragments. The original Electric renderer and the other seven effects remain available unchanged. This is an alternative for visual comparison, not a claim of an exact Raiden recreation or a measured model-quality result.
