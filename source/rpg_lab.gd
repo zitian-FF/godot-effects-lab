@@ -18,6 +18,7 @@ var renderer:Node2D
 var astra:Node2D
 var comparison_mode=2
 var comparison_buttons:Array[Button]=[]
+var asset_study_button:Button
 var comparison_labels:Array[Label]=[]
 var effect_buttons:Array[Button]=[]
 var toggles:Array[CheckButton]=[]
@@ -56,7 +57,8 @@ func _ready():
 		b.alignment=HORIZONTAL_ALIGNMENT_LEFT;effect_buttons.append(b)
 	button_at("Show peak",Vector2(20,714),Vector2(185,40),func():seek(Catalog.PEAKS[selected]))
 	button_at("Source reference ↗",Vector2(20,767),Vector2(185,40),func():OS.shell_open(Catalog.URLS[selected]))
-	label_at("1–8   Select\nSpace   Replay\nP   Pause / resume",Vector2(23,842),13,MUTED,195)
+	asset_study_button=button_at("Asset breakdown",Vector2(20,817),Vector2(185,35),func():OS.shell_open("https://zitian-ff.github.io/godot-effects-lab/studies/electric-skills-trial/"))
+	label_at("1–8   Select\nSpace   Replay\nP   Pause / resume",Vector2(23,873),13,MUTED,195)
 	title_label=label_at("",Vector2(252,125),28)
 	for i in range(3):
 		var mode=i
@@ -111,6 +113,7 @@ func set_comparison(mode:int):
 	update_comparison()
 func update_comparison():
 	var electric=selected==1
+	asset_study_button.visible=electric
 	for b in comparison_buttons:b.visible=electric
 	for i in range(3):
 		comparison_buttons[i].add_theme_stylebox_override("normal",style(Color("392953") if i==comparison_mode else Color("152033"),Color("b89aea") if i==comparison_mode else Color("2a3b52")))

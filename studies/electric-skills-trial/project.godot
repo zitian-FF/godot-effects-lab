@@ -1,7 +1,7 @@
 config_version=5
 
 [application]
-config/name="Electric · Skills trial · Pass 03"
+config/name="Electric · Asset design and production · Pass 04"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 run/main_scene="res://study.tscn"
 
