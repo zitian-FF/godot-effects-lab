@@ -1,27 +1,41 @@
 {
   "date": "2026-10-24",
-  "assets": [
-    {
-      "path": "art/brush.png",
-      "source": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: single grayscale game VFX brush alpha mask to map onto an animated curved sword-slash ribbon in Godot. Generate ONE isolated horizontal tapered white dry-brush stroke on a genuinely transparent background. Center it, nearly full image width with generous transparent top/bottom and 8 percent transparent margins at left and right. The stroke occupies only the middle 35 percent of image height. Shape: asymmetrical blade of paint, a fine sharp right-pointed leading tip, a broader middle body, and torn wispy left tail broken into 4 to 6 long directional bristle streaks. High-density white edge near the upper contour; translucent gray body with broad negative gaps and fine horizontal striations. Hand-painted high-end stylized action RPG effect texture. Keep it straight, no crescent curvature, because mesh UVs supply the curvature. Hard crisp bright contour in places with deliberately missing patches, not a smooth vector shape. Pure white and neutral grayscale only, preserve actual alpha. No glow, no colored light, no outlines, no eyes, no symbols, no scenery, no text, no frame, no fake checkerboard background.",
-      "original_size": [
-        2172,
-        724
-      ],
-      "alpha": "Preserved generated RGBA alpha; not background-keyed or extracted from game footage"
-    },
-    {
-      "path": "art/contact.svg",
-      "source": "Original code-authored irregular impact star"
-    },
-    {
-      "path": "art/shard.svg",
-      "source": "Existing original authored Astra shard mask from source/art/rpg/astra-shard.svg"
-    },
-    {
-      "path": "motion_guide.gd",
-      "source": "Unchanged copy of studies/electric-gameplay/study.gd; fixed presentation guide"
-    }
-  ]
+  "active_package": "art/designed/manifest.json",
+  "handoff": "art/designed/HANDOFF.md",
+  "design_effort": "Ultra",
+  "active_assets": [
+    "art/designed/textures/crescent_mask.png",
+    "art/designed/textures/crescent_edge.png",
+    "art/designed/textures/spark_needle.png",
+    "art/designed/textures/spark_chip.png"
+  ],
+  "runtime_geometry": "48 angular segments / 2 radial rows / planar UVs; source meshes in art/designed/meshes",
+  "provenance": "Original code-authored vector shapes, directly rasterized; no ImageGen or game-extracted assets used in this pass",
+  "prior_trial_inactive": {
+    "date": "2026-10-24",
+    "assets": [
+      {
+        "path": "art/brush.png",
+        "source": "Built-in image_gen",
+        "prompt": "Use case: stylized-concept. Asset type: single grayscale game VFX brush alpha mask to map onto an animated curved sword-slash ribbon in Godot. Generate ONE isolated horizontal tapered white dry-brush stroke on a genuinely transparent background. Center it, nearly full image width with generous transparent top/bottom and 8 percent transparent margins at left and right. The stroke occupies only the middle 35 percent of image height. Shape: asymmetrical blade of paint, a fine sharp right-pointed leading tip, a broader middle body, and torn wispy left tail broken into 4 to 6 long directional bristle streaks. High-density white edge near the upper contour; translucent gray body with broad negative gaps and fine horizontal striations. Hand-painted high-end stylized action RPG effect texture. Keep it straight, no crescent curvature, because mesh UVs supply the curvature. Hard crisp bright contour in places with deliberately missing patches, not a smooth vector shape. Pure white and neutral grayscale only, preserve actual alpha. No glow, no colored light, no outlines, no eyes, no symbols, no scenery, no text, no frame, no fake checkerboard background.",
+        "original_size": [
+          2172,
+          724
+        ],
+        "alpha": "Preserved generated RGBA alpha; not background-keyed or extracted from game footage"
+      },
+      {
+        "path": "art/contact.svg",
+        "source": "Original code-authored irregular impact star"
+      },
+      {
+        "path": "art/shard.svg",
+        "source": "Existing original authored Astra shard mask from source/art/rpg/astra-shard.svg"
+      },
+      {
+        "path": "motion_guide.gd",
+        "source": "Unchanged copy of studies/electric-gameplay/study.gd; fixed presentation guide"
+      }
+    ]
+  }
 }

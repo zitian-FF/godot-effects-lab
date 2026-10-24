@@ -2,7 +2,7 @@
 
 [Open the live lab](https://zitian-ff.github.io/godot-effects-lab/)
 
-[Electric skills trial — textured VFX](https://zitian-ff.github.io/godot-effects-lab/studies/electric-skills-trial/) applies the installed Scenario VFX, Godot particle and Godot shader skills to one gameplay effect. Compare the unchanged motion guide against the brush/shader/contact/particle composition and inspect progressive passes in the side inspector. [Trial notes and limits](studies/electric-skills-trial/README.md).
+[Electric asset design and production](https://zitian-ff.github.io/godot-effects-lab/studies/electric-skills-trial/) now shows the crescent body/edge, matched mesh and planar UVs, and two separately designed spark shapes before their shader/particle composition. Inspect Assets, mask, distortion, individual sparks and Production with the unchanged motion guide. The main lab's Electric view includes an **Asset breakdown** link. [Production notes and limits](studies/electric-skills-trial/README.md).
 
 [Electric gameplay study — motion blockout](https://zitian-ff.github.io/godot-effects-lab/studies/electric-gameplay/) is a separate work-in-progress review pass following the choice of a character-anchored gameplay attack. Inspect weapon-driven crescent motion, a planted-foot step, contact and recovery in grayscale before adding textures, shaders and particles. It includes phase checkpoints, slow playback, frame stepping, scrub and mass/path toggles with a production inspector. See [the study notes](studies/electric-gameplay/README.md). The main lab below remains the earlier comparison.
 

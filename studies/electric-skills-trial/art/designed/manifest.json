@@ -1,0 +1,339 @@
+{
+  "schema": "electric-asset-design-v1",
+  "date": "2026-10-24",
+  "status": "asset_design_ready_for_production_integration",
+  "scope": "One curved gameplay sword slash and two supporting spark shapes; no character or emitter implementation.",
+  "origin": "Original code-authored vector paths and mesh data. PNGs are direct SVG rasterizations.",
+  "source_game_facts": [],
+  "reference_consulted": [
+    {
+      "path": "../rpg-references/raiden-104.png",
+      "use": "Qualitative shape-family observation only; no tracing/extraction; overloaded scene is not the brief."
+    },
+    {
+      "path": "../electric-skills-trial/electric-skills-passes.jpg",
+      "use": "Current rendered trial; confirms prior straight dry-brush ribbon and repeated spark mask."
+    },
+    {
+      "path": "../electric-production-study/gameplay-blockout-beats.jpg",
+      "use": "Unchanged motion-guide silhouette and contact context."
+    }
+  ],
+  "chosen_topology": {
+    "type": "planar_annular_sector_support",
+    "reason": "An authored crescent mask with explicit XY UVs, enough padding for modest distortion, and less transparent center than a quad.",
+    "vertices": 98,
+    "triangles": 96,
+    "angular_segments": 48,
+    "radial_rows": 2,
+    "radius_px": [
+      378,
+      544
+    ],
+    "theta_degrees": [
+      -158,
+      -22
+    ],
+    "primary_mesh": "meshes/crescent_support.json",
+    "reference_mesh": "meshes/crescent_support.obj",
+    "obj_uv_convention": "OBJ file stores 1 - Godot V; JSON top-left UVs are authoritative.",
+    "not_selected": {
+      "flat_card": "Simplest valid alternative for static display, but retains the empty center and offers no explicit curved support.",
+      "angularly_unwrapped_strip": "Would require a straight mask and makes the authored asset cease to be a visible crescent. Not used."
+    }
+  },
+  "coordinate_contract": {
+    "texture_px": [
+      1024,
+      640
+    ],
+    "texture_origin": "top_left",
+    "local_pivot": [
+      0,
+      0
+    ],
+    "pivot_texture_px": [
+      512,
+      652
+    ],
+    "pivot_uv": [
+      0.5,
+      1.01875
+    ],
+    "uv_formula": "((local.x+512)/1024,(local.y+652)/640)",
+    "active_theta_degrees": [
+      -154,
+      -26
+    ],
+    "active_radius_outer_px": 520,
+    "active_head": {
+      "theta_degrees": -26,
+      "radius_px": 520,
+      "texture_px": [
+        979.3729040755668,
+        424.0470036696797
+      ],
+      "local_px": [
+        467.3729040755668,
+        -227.95299633032027
+      ],
+      "uv": [
+        0.9564188516362957,
+        0.6625734432338746
+      ]
+    },
+    "active_tail": {
+      "theta_degrees": -154,
+      "radius_px": 520,
+      "texture_px": [
+        44.62709592443315,
+        424.04700366967984
+      ]
+    },
+    "guide_alignment": {
+      "radial_scale": 0.4519230769230769,
+      "rotation_radians": "guide.angle(t)-deg_to_rad(-26)",
+      "order": [
+        "rotate local XY",
+        "uniform radial scale 235/520",
+        "project Y *= 0.58",
+        "add guide.hand(t)"
+      ],
+      "tip_should_equal": "guide.tip(t) without any character-motion changes"
+    }
+  },
+  "assets": [
+    {
+      "id": "crescent_body",
+      "svg": "textures/crescent_mask.svg",
+      "png": "textures/crescent_mask.png",
+      "canvas_px": [
+        1024,
+        640
+      ],
+      "anchor_texture_px": [
+        512,
+        652
+      ],
+      "appearance": "Neutral grayscale RGB, alpha; no glow. Outer circular arc, asymmetrical inner thickness, pointed ends.",
+      "design_values": {
+        "rgb_range": "#484848–#ececec",
+        "alpha_max_analytic": 0.91,
+        "inner_feather_px": 12,
+        "width_px_formula": "125*sin(pi*t)^0.9*(0.5+0.8*t), t=(theta+154)/128"
+      },
+      "role": "Main broad curved mass; supplies readable slash before shader treatment."
+    },
+    {
+      "id": "crescent_edge",
+      "svg": "textures/crescent_edge.svg",
+      "png": "textures/crescent_edge.png",
+      "canvas_px": [
+        1024,
+        640
+      ],
+      "anchor_texture_px": [
+        512,
+        652
+      ],
+      "design_values": {
+        "rgb_range": "#8d8d8d–#ffffff",
+        "alpha_range": [
+          0,
+          1
+        ],
+        "midarc_width_px": 7
+      },
+      "role": "Separate thin hot outer contour; exact same mesh, UV and distortion as body."
+    },
+    {
+      "id": "spark_needle",
+      "svg": "textures/spark_needle.svg",
+      "png": "textures/spark_needle.png",
+      "canvas_px": [
+        192,
+        48
+      ],
+      "anchor_texture_px": [
+        96,
+        24
+      ],
+      "direction_axis": "+X",
+      "active_bounds_analytic_px": [
+        8,
+        17,
+        184,
+        31
+      ],
+      "active_aspect_analytic": 12.571428571428571,
+      "design_values": {
+        "rgb_range": "#747474–#ffffff",
+        "alpha": "0.02 at thin tail, rising to 1 at head; narrow white spine"
+      },
+      "role": "Few fast directed releases. Fine tapered tail carries speed; pointed fuller head reads direction."
+    },
+    {
+      "id": "spark_chip",
+      "svg": "textures/spark_chip.svg",
+      "png": "textures/spark_chip.png",
+      "canvas_px": [
+        128,
+        64
+      ],
+      "anchor_texture_px": [
+        64,
+        32
+      ],
+      "direction_axis": "+X",
+      "active_bounds_analytic_px": [
+        12,
+        17,
+        116,
+        45
+      ],
+      "active_aspect_analytic": 3.7142857142857144,
+      "design_values": {
+        "facet_rgb": [
+          "#9c9c9c",
+          "#eeeeee",
+          "#6b6b6b",
+          "#ffffff"
+        ],
+        "facet_alpha": [
+          0.86,
+          0.98,
+          0.65,
+          0.9
+        ]
+      },
+      "role": "Few compact detached flecks near release; unequal polygon and facets remain distinct from thin needles."
+    }
+  ],
+  "proposed_material_layers": [
+    "crescent body",
+    "crescent edge, same geometry/UV/distortion",
+    "needle particles",
+    "chip particles"
+  ],
+  "emitter_implications_after_shape_design": [
+    "Use separate emitters/material scales for needle and chip; do not reinterpret one star mask as both.",
+    "Needle long axis +X follows the release velocity; preserve its thin aspect instead of isotropically scaling a large square.",
+    "Chip may rotate independently; keep its compact aspect, lower travel and short visible life.",
+    "Spawn a few near the leading release region after the crescent is established. Do not fill the entire arc with generic particles.",
+    "No exact counts, speeds or lifetimes are approved at asset stage; tune in the fixed motion guide at gameplay size."
+  ],
+  "distortion_contract": {
+    "space": "Planar texture pixel offsets, converted by /vec2(1024,640). Use identical offsets for body and edge.",
+    "starting_bound_px": 4,
+    "head_tail_protection": "Fade distortion to zero within the last/first 8% of active angular extent.",
+    "silhouette_first": "Keep the outer arc and pointed tip readable; noise must not become the primary shape.",
+    "screen_refraction": "Optional later material decision; not part of these assets or a required additional layer."
+  },
+  "known_limits": [
+    "Asset board is a neutral design view, not a final VFX composite or an approved animation.",
+    "Clean vector shape is intentional; final shader distortion/erosion, tint and additive balance need root visual validation.",
+    "Needle cubic control-point envelope is 14 px high; its raster-visible height can be smaller. Use raster measurement for final particle scale.",
+    "OBJ is reference geometry; use JSON for MeshInstance2D to avoid importer coordinate conventions.",
+    "No new gameplay hit timing, character animation, emitters, export, deployment or source-repo changes."
+  ],
+  "raster_validation": [
+    {
+      "path": "textures/crescent_mask.png",
+      "width": 1024,
+      "height": 640,
+      "alpha_range": [
+        0,
+        232
+      ],
+      "alpha_nonzero_bounds_inclusive": [
+        44,
+        132,
+        979,
+        423
+      ],
+      "covered_fraction": 0.1211669921875,
+      "non_grayscale_visible_pixels": 0,
+      "nontransparent_border_pixels": 0,
+      "sha256": "4eaecaf8b8d85e45f16c9c516c1b73eb434c8945c43dc1ab93f91581c78546c9"
+    },
+    {
+      "path": "textures/crescent_edge.png",
+      "width": 1024,
+      "height": 640,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_nonzero_bounds_inclusive": [
+        44,
+        132,
+        979,
+        423
+      ],
+      "covered_fraction": 0.01025848388671875,
+      "non_grayscale_visible_pixels": 0,
+      "nontransparent_border_pixels": 0,
+      "sha256": "ad450a2e2c422dd0889d939f824f229e26945fb5fdeda9e22929cbea9877b704"
+    },
+    {
+      "path": "textures/spark_needle.png",
+      "width": 192,
+      "height": 48,
+      "alpha_range": [
+        0,
+        253
+      ],
+      "alpha_nonzero_bounds_inclusive": [
+        10,
+        17,
+        183,
+        30
+      ],
+      "covered_fraction": 0.1472439236111111,
+      "non_grayscale_visible_pixels": 0,
+      "nontransparent_border_pixels": 0,
+      "sha256": "51add9908bd7919cd42b65558fc31dd67508eee7133bfa43cda7790e9be1ad29"
+    },
+    {
+      "path": "textures/spark_chip.png",
+      "width": 128,
+      "height": 64,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_nonzero_bounds_inclusive": [
+        12,
+        17,
+        115,
+        44
+      ],
+      "covered_fraction": 0.21826171875,
+      "non_grayscale_visible_pixels": 0,
+      "nontransparent_border_pixels": 0,
+      "sha256": "ae2425be72bd492ef446995793c9fe322af04c71b717c488d7f28a9090bf27fb"
+    }
+  ],
+  "provenance_files": [
+    "build_assets.py",
+    "rasterize_vectors.js"
+  ],
+  "sha256": {
+    "textures/crescent_mask.svg": "9ac31ba6573cc6a72baa63ff6073bcc2bfba5154c1ad1c95a43bfcf1747b7649",
+    "textures/crescent_mask.png": "4eaecaf8b8d85e45f16c9c516c1b73eb434c8945c43dc1ab93f91581c78546c9",
+    "textures/crescent_edge.svg": "675b2c7daa306461251847f2685c9606efde8e552916e7982550242b0ea00a16",
+    "textures/crescent_edge.png": "ad450a2e2c422dd0889d939f824f229e26945fb5fdeda9e22929cbea9877b704",
+    "textures/spark_needle.svg": "4561ffc9d1b877a83e3fcec9fb6be71cc74ff45e7fbefb6bb368212ce399b842",
+    "textures/spark_needle.png": "51add9908bd7919cd42b65558fc31dd67508eee7133bfa43cda7790e9be1ad29",
+    "textures/spark_chip.svg": "ee1d4c089d81056f11af53df8a7192291bc2723e94a2661bb030d1e731dfeb71",
+    "textures/spark_chip.png": "ae2425be72bd492ef446995793c9fe322af04c71b717c488d7f28a9090bf27fb",
+    "asset-board.svg": "c46f912bcb08cc12ad72bc344f2acd6f850a9b7fed66482336239060f2f5a3cb",
+    "asset-board.png": "2ecb748ce7fcd9128465c476e8a61f10150b0caa8d742aa1f2ee10f27a4e4a6f",
+    "topology-uv.svg": "3cb26cd34a7cc63fec0d63b2fffdaf07de671d8776386f97b692af9b0902dae8",
+    "topology-uv.png": "8d000e095b2c256dacdcb74f7eb0d6c59860f54c1387c28a7ba0bd7e8e3560d8",
+    "meshes/crescent_support.json": "740d85d2d5212f2d0a2f563d578ed6a6feb3523550415e20bef0a053f50e176f",
+    "meshes/crescent_support.obj": "819d9e72383c9a7276f8f0d7f768afcc37ca3770b4a7be0890fbe71d344060c1",
+    "build_assets.py": "a032fd56a001aded5c1edc6248379fcbfcc23b893f1d6a05e0a50c922afbe1ed",
+    "rasterize_vectors.js": "7856e7a6d8322a3be1eebc0f744d8d4d54a4adf55c5a4e6beefac320a3bc2f71"
+  }
+}

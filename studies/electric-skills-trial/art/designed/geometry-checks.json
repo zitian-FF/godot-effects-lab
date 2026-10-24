@@ -1,0 +1,18 @@
+{
+  "mask_radii_px": [
+    402.57483776311705,
+    520.6539157636289
+  ],
+  "mask_angles_degrees": [
+    -153.95200026580414,
+    -26.047999734195855
+  ],
+  "mask_inside_support": true,
+  "mesh_vertices": 98,
+  "mesh_triangles": 96,
+  "uv_inside_unit_square": true,
+  "board_dimensions": [
+    1600,
+    1060
+  ]
+}
